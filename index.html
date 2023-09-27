@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Example</title>
+</head>
+<body>
+
+<script>
+    // Get the link parameter from the URL (e.g., ?link=example.com).
+    const urlParams = new URLSearchParams(window.location.search);
+    const link = urlParams.get('link');
+
+    if (link) {
+        // Construct the URL with the provided link parameter.
+        const url = `https://example.org/?link=${encodeURIComponent(link)}`;
+
+        // Use the Fetch API to send a GET request.
+        fetch(url)
+            .then(response => {
+                // Check if the request was successful (status code 2xx).
+                if (response.ok) {
+                    return response.text();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                // Handle the response data as needed.
+                console.log('Response:', data);
+            })
+            .catch(error => {
+                // Handle errors.
+                console.error('Error:', error);
+            });
+    } else {
+        console.error('No link parameter provided in the URL.');
+    }
+</script>
+
+</body>
+</html>
